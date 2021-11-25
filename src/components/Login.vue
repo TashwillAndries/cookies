@@ -22,6 +22,7 @@
 </template>
 
 <script>
+import { mapActions, mapGetters } from "vuex";
 export default {
   data() {
     return {
@@ -30,19 +31,26 @@ export default {
       error: false,
     };
   },
+  computed: {
+    ...mapGetters("auth", {
+      getloginStatus: "getloginStatus",
+    }),
+  },
   methods: {
-    login() {
-      this.$store
-        .dispatch("login", {
-          email: this.email,
-          password: this.password,
-        })
-        .then((success) => {
-          this.$router.push("/dashboard ");
-        })
-        .catch((error) => {
-          this.error = true;
-        });
+    ...mapActions("auth", {
+      userLogin: "userLogin",
+    }),
+    async login() {
+      const payload = {
+        email: this.email,
+        password: this.password,
+      };
+      await this.userLogin(payload);
+      if (this.getloginStatus == "success") {
+        console.log("i work");
+      } else {
+        alert("error");
+      }
     },
   },
 };

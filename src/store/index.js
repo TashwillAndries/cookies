@@ -1,9 +1,11 @@
 import { createStore } from "vuex";
-import User from "./modules/user";
+// import User from "./modules/user";
+
+import authModule from "./modules/auth";
 
 const store = createStore({
   modules: {
-    user: User,
+    auth: authModule,
   },
 });
 
