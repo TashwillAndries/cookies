@@ -1,4 +1,5 @@
 import axios from "axios";
+import Cookies from "js-cookie";
 
 const state = () => ({
   loginStatus: "",
@@ -16,6 +17,18 @@ const actions = {
       .post("https://agile-eyrie-70184.herokuapp.com/login", payload, {
         "Access-Control-Allow-Origin": true,
       })
+      .then((response) => {
+        if (
+          response.status === 200 &&
+          response.statusText === "OK" &&
+          response.data.token
+        ) {
+          const token = response.data.token;
+          Cookies.set("jwt", token);
+          console.log(`success. here is the cookie => ${Cookies.get("jwt")}`);
+        }
+      })
+
       //   .then(response => {
       //     if(response.status === 200 && response.statusText === "OK" && response.data.token) {
       //         const token = response.data.token;

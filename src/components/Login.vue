@@ -49,7 +49,7 @@ export default {
       if (this.getloginStatus == "success") {
         console.log("i work");
       } else {
-        alert("error");
+        this.error = true;
       }
     },
   },
